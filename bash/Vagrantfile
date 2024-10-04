@@ -1,0 +1,34 @@
+# Vagrantfile for multi-VM setup with Ubuntu and CentOS
+
+Vagrant.configure("2") do |config|
+    config.hostmanager.enabled = true 
+    config.hostmanager.manage_host = true
+  
+    config.vm.define "scriptbox" do |scriptbox|
+      scriptbox.vm.box = "eurolinux-vagrant/centos-stream-9"
+      scriptbox.vm.hostname = "scriptbox"
+      scriptbox.vm.network "private_network", ip: "192.168.56.16"
+      scriptbox.vm.provider "virtualbox" do |vb|
+        vb.memory = "1600"
+      end
+    end
+  
+    config.vm.define "web01" do |web01|
+      web01.vm.box = "ubuntu/jammy64"
+      web01.vm.hostname = "web01"
+      web01.vm.network "private_network", ip: "192.168.56.24"
+      web01.vm.provider "virtualbox" do |vb|
+        vb.memory = "1600"
+      end
+    end
+
+    config.vm.define "web02" do |web02|
+      web02.vm.box = "ubuntu/jammy64"
+      web02.vm.hostname = "web02"
+      web02.vm.network "private_network", ip: "192.168.56.32"
+      web02.vm.provider "virtualbox" do |vb|
+        vb.memory = "1600"
+      end
+    end
+  end
+  
